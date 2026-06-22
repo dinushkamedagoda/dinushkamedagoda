@@ -1,0 +1,54 @@
+system:
+  device: "cuda"  # cuda | cpu
+  seed: 42
+  log_level: "INFO"
+
+paths:
+  data_dir: "data"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  embeddings_dir: "data/embeddings"
+  models_dir: "models"
+  mlflow_uri: "mlruns"
+
+yolo:
+  model: "yolov8n.pt"
+  confidence: 0.5
+  iou_threshold: 0.45
+  img_size: 640
+  classes_of_interest: []  # empty = all classes
+
+clip:
+  model: "ViT-B/32"
+  batch_size: 32
+  embedding_dim: 512
+
+ocr:
+  languages: ["en", "zh", "ar", "fr", "de", "es", "ja", "ko", "hi"]
+  use_gpu: true
+  detail: 1
+  paragraph: false
+
+nlp:
+  model: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+  max_length: 512
+  batch_size: 64
+
+similarity:
+  image_weight: 0.5
+  text_weight: 0.3
+  logo_weight: 0.2
+  counterfeit_threshold: 0.85
+  suspicious_threshold: 0.70
+  top_k: 5
+
+mlflow:
+  experiment_name: "counterfeit_detection"
+  tracking_uri: "mlruns"
+  model_registry_name: "CounterfeitDetector"
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  max_image_size_mb: 10
+  allowed_formats: ["jpg", "jpeg", "png", "webp"]
